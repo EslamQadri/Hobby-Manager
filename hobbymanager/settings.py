@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-(d1md6$9w2+xy#y8kq8*p&9cx!3#=xfa(8-s67v^y0)^exn1wk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["EslamQadri.pythonanywhere.com"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -49,8 +49,22 @@ INSTALLED_APPS = [
 ]
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
+}
+SIMPLE_JWT = {
+    "AUTH_HEADER_TYPES": ("Bearer",),
+    "USER_ID_FIELD": "id",
+    "USER_ID_CLAIM": "user_id",
+}
+SWAGGER_SETTINGS = {
+    "SECURITY_DEFINITIONS": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+        }
+    },
 }
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

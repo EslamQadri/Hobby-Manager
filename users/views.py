@@ -1,28 +1,44 @@
 from rest_framework import generics, permissions
-
 from django.contrib.auth.models import User
-from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
-from users.serializers import UserSerializer, UserLoginSerializer
-
-"""
-i know i implementing a poor auth
-"""
+from users.serializers import UserSerializer
+from rest_framework import generics, permissions, status
+from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 class UserLogin(generics.CreateAPIView):
-    serializer_class = UserLoginSerializer
+    queryset = User.objects.all()
 
     def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data
-        token, created = Token.objects.get_or_create(user=user)
-        return Response({"token": token.key})
+        data = request.data
+        username = data.get("username", None)
+        password = data.get("password", None)
+
+        if username is None or password is None:
+            return Response(
+                {"error": "Please provide both username and password."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        user = User.objects.filter(username=username).first()
+
+        if user is None or not user.check_password(password):
+            return Response(
+                {"error": "Invalid username or password."},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
+
+        refresh = RefreshToken.for_user(user)
+        return Response(
+            {"access_token": str(refresh.access_token), "refresh_token": str(refresh)},
+            status=status.HTTP_200_OK,
+        )
 
 
 class UserSignup(generics.CreateAPIView):
     serializer_class = UserSerializer
+    permission_classes = (permissions.AllowAny,)
 
 
 class UserLogout:
