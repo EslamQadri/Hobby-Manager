@@ -1,11 +1,13 @@
-from rest_framework.serializers import ModelSerializer
-from hobby.models import Hobby, HobbyProgress
+from rest_framework.serializers import ModelSerializer, MultipleChoiceField
+from hobby.models import Hobby, HobbyProgress, DAY_CHOICES
 
 
 class HobbySerializer(ModelSerializer):
+    days_of_hobby = MultipleChoiceField(choices=DAY_CHOICES)
+
     class Meta:
         model = Hobby
-        exclude = ["user"]
+        fields = "__all__"
 
 
 class HobbyProgressSerializer(ModelSerializer):

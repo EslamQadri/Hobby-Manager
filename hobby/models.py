@@ -21,6 +21,9 @@ class Hobby(models.Model):
     note = models.TextField(blank=True, null=True)
     days_of_hobby = MultiSelectField(choices=DAY_CHOICES, max_choices=7, max_length=56)
 
+    def __str__(self) -> str:
+        return f"{self.user.username } {self.hobby}"
+
 
 class HobbyProgress(models.Model):
     hobby = models.ForeignKey(Hobby, on_delete=models.CASCADE)
@@ -28,3 +31,6 @@ class HobbyProgress(models.Model):
     is_completed = models.BooleanField("cheek", default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        return f"{self.hobby.hobby}"

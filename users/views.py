@@ -1,7 +1,7 @@
 from rest_framework import generics, permissions
 from django.contrib.auth.models import User
 from rest_framework.response import Response
-from users.serializers import UserSerializer
+from users.serializers import UserSerializer, UserLoginSerializer
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -9,6 +9,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 class UserLogin(generics.CreateAPIView):
     queryset = User.objects.all()
+    serializer_class = UserLoginSerializer
 
     def post(self, request, *args, **kwargs):
         data = request.data
