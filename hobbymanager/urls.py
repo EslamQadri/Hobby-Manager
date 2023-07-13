@@ -34,4 +34,9 @@ urlpatterns = [
         SpectacularSwaggerView.as_view(),
         name="swagger-ui",
     ),
+    path(
+        "",
+        SpectacularSwaggerView.as_view(),
+        name="swagger-ui",
+    ),
 ]
