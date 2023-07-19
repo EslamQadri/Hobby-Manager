@@ -146,7 +146,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Africa/Cairo"
 
 USE_I18N = True
 
@@ -163,5 +163,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-CRONJOBS = [("*/1 * * * *", "hobby.tasks.create_hobby_prograss")]
+logfile = os.path.join(BASE_DIR, "logfile.log")
+CRONJOBS = [
+    ("0 0 * * *", "hobby.tasks.create_hobby_prograss", f">> {logfile}"),
+]

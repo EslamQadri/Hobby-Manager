@@ -12,12 +12,12 @@ def create_hobby_prograss():
     to create a daily hobbys
     """
     users = User.objects.all()
-    print(users)
 
     for user in users:
-        hobbys = Hobby.objects.filter(user=user)
+        hobbys = Hobby.objects.filter(user=user, days_of_hobby__contains=theday.lower())
         for hobby in hobbys:
-            days_of_hobby = hobby.days_of_hobby
-            for day in days_of_hobby:
-                print(day == theday.lower())
-
+            HobbyProgress.objects.create(hobby=hobby, day=theday.lower())
+            print(
+                f"created  by {user.username} and hobby name is {hobby.hobby} and the day is {theday.lower()}"
+            )
+        # for hobby in hobbys:
