@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "rest_framework.authtoken",
     "drf_spectacular_sidecar",
+    "debug_toolbar",
 ]
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
@@ -73,6 +74,7 @@ SIMPLE_JWT = {
 }
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -81,7 +83,12 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.1",
+    "http://eslamqadri.pythonanywhere.com/",
+    # ...
+]
 ROOT_URLCONF = "hobbymanager.urls"
 
 TEMPLATES = [
