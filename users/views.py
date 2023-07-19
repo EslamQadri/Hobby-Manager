@@ -1,6 +1,5 @@
 from rest_framework import generics, permissions
 from django.contrib.auth.models import User
-from rest_framework.response import Response
 from users.serializers import UserSerializer, UserLoginSerializer
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response

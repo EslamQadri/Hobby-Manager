@@ -3,10 +3,7 @@ from hobby.models import Hobby, HobbyProgress
 from hobby.serializers import HobbySerializer, HobbyProgressSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
-import drf_yasg
 
-
-from drf_yasg import openapi
 
 
 class HobbyViwe(RetrieveUpdateDestroyAPIView):
