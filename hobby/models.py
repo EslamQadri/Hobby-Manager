@@ -34,3 +34,22 @@ class HobbyProgress(models.Model):
 
     def __str__(self) -> str:
         return f"{self.hobby.hobby}"
+
+
+# for anther thing
+class Product(models.Model):
+    product = models.CharField("اسم الصنف ", max_length=200)
+    size = models.IntegerField(
+        "المقاس",
+    )
+    sell_price = models.DecimalField("سعر البيع ", max_digits=6, decimal_places=2)
+    buy_price = models.DecimalField("سعر الشراء ", max_digits=6, decimal_places=2)
+    Quantity = models.IntegerField(
+        "الكميه",
+    )
+    barcode = models.CharField("باركود", max_length=50)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        return f"{self.product}"
