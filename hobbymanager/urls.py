@@ -14,10 +14,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path, include, re_path
 
-
+from hobby.ipfile import get_client_ip
 from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularRedocView,
@@ -25,6 +26,7 @@ from drf_spectacular.views import (
 )
 
 urlpatterns = [
+    path("know", get_client_ip),
     path("admin/", admin.site.urls),
     path("hobby/", include("hobby.urls")),
     path("user/", include("users.urls")),
